@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/ForumMicroService-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the port that the application will run on
-EXPOSE 8080
+EXPOSE 8099
 
 # Define the command to run the application when the container starts
 CMD ["java", "-jar", "app.jar"]

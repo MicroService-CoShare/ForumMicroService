@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ForumRestAPI {
 
-    
-
     private String title="hello , im the updated forum microservice";
 
     @RequestMapping("/hello")

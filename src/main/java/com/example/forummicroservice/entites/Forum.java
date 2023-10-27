@@ -1,10 +1,12 @@
 package com.example.forummicroservice.entites;
 
 import lombok.*;
+import org.springframework.http.ResponseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -24,4 +26,5 @@ public class Forum implements Serializable {
     private String title;
     @ElementCollection
     private List<String> questions;
+
 }

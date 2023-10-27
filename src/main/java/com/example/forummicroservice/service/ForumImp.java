@@ -19,8 +19,8 @@ public class ForumImp implements ForumInterface {
     }
 
     @Override
-    public Forum getForumById(int forumId) {
-        return forumRepository.findById(forumId).orElse(null);
+    public Optional<Forum> getForumById(int forumId) {
+        return forumRepository.findById(forumId);
     }
 
     @Override

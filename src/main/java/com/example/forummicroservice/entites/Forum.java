@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 @Data
 @Entity
@@ -21,10 +20,7 @@ public class Forum implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)
     private int forumId;
-    @Enumerated(EnumType.STRING)
-    private ForumType type;
     private String title;
-    @ElementCollection
-    private List<String> questions;
+    private String questions;
 
 }

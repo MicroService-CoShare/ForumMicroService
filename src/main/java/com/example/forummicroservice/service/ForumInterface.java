@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ForumInterface {
-    Forum createForum(Forum forum);
-    Optional<Forum> getForumById(int forumId);
+    Forum addForum(Forum forum);
+    Forum getForumById(int forumId);
     List<Forum> getAllForums();
-    Forum updateForum(Forum forum);
-    Boolean deleteForum(int forumId);
+    Forum updateForum(int id, Forum newForum);
+    String deleteForum(int forumId);
 }

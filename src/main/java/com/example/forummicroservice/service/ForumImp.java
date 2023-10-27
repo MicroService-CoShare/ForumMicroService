@@ -13,35 +13,36 @@ public class ForumImp implements ForumInterface {
     @Autowired
     private ForumRepo forumRepository;
 
-    @Override
-    public Forum createForum(Forum forum) {
+    public Forum addForum(Forum forum) {
         return forumRepository.save(forum);
     }
 
-    @Override
-    public Optional<Forum> getForumById(int forumId) {
-        return forumRepository.findById(forumId);
+    public Forum updateForum(int id, Forum newForum) {
+        if (forumRepository.findById(id).isPresent()) {
+            Forum existingForum = forumRepository.findById(id).get();
+            existingForum.setTitle(newForum.getTitle());
+            existingForum.setQuestions(newForum.getQuestions());
+            return forumRepository.save(existingForum);
+        } else {
+            return null;
+        }
     }
 
-    @Override
+    public String deleteForum(int id) {
+        if (forumRepository.findById(id).isPresent()) {
+            forumRepository.deleteById(id);
+            return "Forum deleted";
+        } else {
+            return "Forum not deleted";
+        }
+    }
+
     public List<Forum> getAllForums() {
         return forumRepository.findAll();
     }
 
-    @Override
-    public Forum updateForum(Forum forum) {
-        return forumRepository.save(forum);
+
+    public Forum getForumById(int id) {
+        return forumRepository.findById(id).orElse(null);
     }
-
-    @Override
-    public Boolean deleteForum(int forumId) {
-        if (forumRepository.existsById(forumId)) {
-            forumRepository.deleteById(forumId);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
 }

@@ -34,32 +34,32 @@ public class ForumRestAPI {
     @Autowired
     private ForumInterface forumService;
 
-    @GetMapping
-    public ResponseEntity<List<Forum>> getAllForums() {
-        return new ResponseEntity<>(forumService.getAllForums(), HttpStatus.OK);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Forum> getForumById(@PathVariable int id) {
-        return forumService.getForumById(id)
-                .map(forum -> new ResponseEntity<>(forum, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed("user")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Forum> createForum(@RequestBody Forum forum) {
-        return new ResponseEntity<>(forumService.createForum(forum), HttpStatus.CREATED);
+    public ResponseEntity<Forum> addForum(@RequestBody Forum forum) {
+        return new ResponseEntity<>(forumService.addForum(forum), HttpStatus.OK);
     }
 
-    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Forum> updateForum(@RequestBody Forum forum) {
-        return new ResponseEntity<>(forumService.updateForum(forum), HttpStatus.OK);
+    @RolesAllowed("user")
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Forum> updateForum(@PathVariable(value = "id") int id,
+                                             @RequestBody Forum forum) {
+        return new ResponseEntity<>(forumService.updateForum(id, forum), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteForum(@PathVariable int id) {
-        forumService.deleteForum(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @RolesAllowed("user")
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<String> deleteForum(@PathVariable(value = "id") int id) {
+        return new ResponseEntity<>(forumService.deleteForum(id), HttpStatus.OK);
+    }
+
+    @RequestMapping("/getAll")
+    @RolesAllowed("user")
+    public ResponseEntity<List<Forum>> getAllForums() {
+        List<Forum> forums = forumService.getAllForums();
+        return new ResponseEntity<>(forums, HttpStatus.OK);
     }
 }

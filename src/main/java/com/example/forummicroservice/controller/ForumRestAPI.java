@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
-@RequestMapping("/api/forums")
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE ,RequestMethod.OPTIONS})
 @RestController
 public class ForumRestAPI {
